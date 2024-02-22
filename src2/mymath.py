@@ -26,19 +26,39 @@ def intersection(seg1,seg2):
     x_intersect = None
     y_intersect = None
     flag = None
+
+    #if slopes are same no intersection, can avoid divide by zero error
     if(seg1.slope - seg2.slope == 0):
-        print("No intersection found")
         flag = 1
     else:
         x_intersect = (seg2.b - seg1.b) / (seg1.slope - seg2.slope)
         y_intersect = (seg1.slope * x_intersect) + seg1.b
 
-    plt.axline([seg1.start_x,seg1.start_y],[seg1.end_x,seg1.end_y],marker = 'o')
-    plt.axline([seg2.start_x, seg2.start_y], [seg2.end_x, seg2.end_y], marker='o')
+    #if x intersect is outside the x range of either line
+    if not ( (min(seg1.start_x,seg1.end_x) < x_intersect < max(seg1.start_x,seg1.end_x))
+              or
+              (min(seg2.start_x,seg2.end_x) < x_intersect < max(seg2.start_x,seg2.end_x))  ):
+        flag = 1
+
+    # if y intersect is outside the x range of either line
+    if not ( (min(seg1.start_y,seg1.end_y) < y_intersect < max(seg1.start_y,seg1.end_y))
+              or
+              (min(seg2.start_y,seg2.end_y) < y_intersect < max(seg2.start_y,seg2.end_y))  ):
+        flag = 1
+
+    #plots both lines
+    plt.plot([seg1.start_x,seg1.end_x],[seg1.start_y,seg1.end_y],marker = 'o')
+    plt.plot([seg2.start_x, seg2.end_x], [seg2.start_y, seg2.end_y], marker='o')
+
+    #if flag is none plot intersection
     if flag == None:
         plt.plot(x_intersect,y_intersect,'bo')
         print("Intersection at", x_intersect, y_intersect)
+    #if not print otherwise
+    else:
+        print("No Intersection found")
 
+    #show plot
     plt.show()
 
 def shortestdistance(pointsList):
@@ -78,7 +98,7 @@ if option == 1:
     x4, y4 = input("enter ordered pair for line 2 segment end").split(',')
     if int(x4) < int(x3):
         x3, x4 = swap(x3, x4)
-        y3, y3 = swap(y3, y4)
+        y3, y4 = swap(y3, y4)
     seg2 = Segment(x3, y3, x4, y4)
 
     #calculates intersection
