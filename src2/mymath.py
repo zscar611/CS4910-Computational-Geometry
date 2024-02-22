@@ -83,7 +83,7 @@ def shortestdistance(pointsList):
 
 def convexHull(pointSet):
     # find smallest convex polygon containing all the pointsList
-    def orientation(one, two, three)
+    def orientation(one, two, three):
         orientated = (two[0] - one[0]) * (three[1] - one[1]) - (two[1] - one[1]) * (three[0] - one[0])
         return orientated
 
@@ -92,16 +92,16 @@ def convexHull(pointSet):
     reversedSet = reversed(sortedSet)
     # upper bound with reversed set
     for j in reversedSet:
-        while len(upper) >= 2 and orientation(lower[-2], lower[-1], j) <= 0
-            upper.pop()
-        upper.append(p)
+        while len(upperBound) >= 2 and orientation(upperBound[-2], upperBound[-1], j) <= 0:
+            upperBound.pop()
+        upperBound.append(j)
     # lower bound with ordered set
     for x in sortedSet:
         while len(lowerBound) >= 2 and orientation(lowerBound[-2], lowerBound[-1], x) <= 0:
             lowerBound.pop()
         lowerBound.append(x)
     # add lower and uppers (last points are not important)
-    result = lowerBound[:-1] + upper [:1]
+    result = lowerBound[:-1] + upperBound[::-1][1:]
     return result
 
 option = int(input("input 1 for line intersection 2 for shortest distance 3 for convex hull 4 for circle:"))
@@ -147,14 +147,17 @@ elif option == 2:
 
 elif option == 3:
     pointsList = []
-    while point != "stop" and point != "Stop" and point != "STOP":
+    point = None
+    while point != "stop":
         point = input("Enter pair of ints: ")
-        if point != "stop" and point != "Stop" and point != "STOP":
-            x, y = point.split(",")
-            pointsList.append(Point(x,y))
-        elif len(pointsList) < 3:
-            point = input("Enter 3 sets: ")
-            x, y = point.split(",")
-            pointsList.append(Point(x,y))
-        resultPoint = convexHull(pointsList)
-        print("Result of Convex Hull: ", resultPoint)
+        if point != "stop":
+            x, y = map(int, point.split(","))
+            pointsList.append((x, y))
+
+    while len(pointsList) < 3:
+        point = input("Enter 3 sets: ")
+        x, y = map(int, point.split(","))
+        pointsList.append((x, y))
+
+    resultPoint = convexHull(pointsList)
+    print("Result of Convex Hull: ", resultPoint)
