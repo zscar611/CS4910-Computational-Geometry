@@ -89,15 +89,15 @@ elif option == 2:
 
     #generate list of points
     pointsList = []
-        point = None
-        while point != "stop" and point !=  "Stop" and point !=  "STOP":
-            point = input("enter ordered pair or type stop to end")
-            if point != "stop" and point != "Stop" and point !=  "STOP":
-                x,y = point.split(",")
-                pointsList.append(Point(x,y))
-            elif len(pointsList) < 3:
-                point = input("not enough points. enter another")
-                x, y = point.split(",")
-                pointsList.append(Point(x, y))
+    point = None
+    while point != "stop" and point !=  "Stop" and point !=  "STOP":
+        point = input("enter ordered pair or type stop to end")
+        if point != "stop" and point != "Stop" and point !=  "STOP":
+            x,y = point.split(",")
+            pointsList.append(Point(x,y))
+        elif len(pointsList) < 3:
+            point = input("not enough points. enter another")
+            x, y = point.split(",")
+            pointsList.append(Point(x, y))
     #calculates shortestdistance
     shortestdistance(pointsList)
