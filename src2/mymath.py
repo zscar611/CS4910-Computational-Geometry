@@ -83,12 +83,26 @@ def shortestdistance(pointsList):
 
 def convexHull(pointSet):
     # find smallest convex polygon containing all the pointsList
+    def orientation(one, two, three)
+        orientated = (two[0] - one[0]) * (three[1] - one[1]) - (two[1] - one[1]) * (three[0] - one[0])
+        return orientated
+
     upperBound, lowerBound = [], []
     sortedSet = sorted(set(pointSet))
-    
+    reversedSet = reversed(sortedSet)
+    # upper bound with reversed set
+    for j in reversedSet:
+        while len(upper) >= 2 and orientation(lower[-2], lower[-1], j) <= 0
+            upper.pop()
+        upper.append(p)
+    # lower bound with ordered set
     for x in sortedSet:
-    
-    
+        while len(lowerBound) >= 2 and orientation(lowerBound[-2], lowerBound[-1], x) <= 0:
+            lowerBound.pop()
+        lowerBound.append(x)
+    # add lower and uppers (last points are not important)
+    result = lowerBound[:-1] + upper [:1]
+    return result
 
 option = int(input("input 1 for line intersection 2 for shortest distance 3 for convex hull 4 for circle:"))
 
@@ -142,4 +156,5 @@ elif option == 3:
             point = input("Enter 3 sets: ")
             x, y = point.split(",")
             pointsList.append(Point(x,y))
-        convexHull(pointsList)
+        resultPoint = convexHull(pointsList)
+        print("Result of Convex Hull: ", resultPoint)
