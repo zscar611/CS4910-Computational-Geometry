@@ -80,8 +80,17 @@ def shortestdistance(pointsList):
     print("Shortest distance:",currentBest[0],"between",currentBest[1].x,",",currentBest[1].y,"and",currentBest[2].x,",",currentBest[2].y)
     plt.show()
 
-option = int(input("input 1 for line intersection 2 for shortest distance 3 for convex hull 4 for circle:"))
 
+def convexHull(pointSet):
+    # find smallest convex polygon containing all the pointsList
+    upperBound, lowerBound = [], []
+    sortedSet = sorted(set(pointSet))
+    
+    for x in sortedSet:
+    
+    
+
+option = int(input("input 1 for line intersection 2 for shortest distance 3 for convex hull 4 for circle:"))
 
 if option == 1:
 
@@ -121,3 +130,16 @@ elif option == 2:
             pointsList.append(Point(x, y))
     #calculates shortestdistance
     shortestdistance(pointsList)
+
+elif option == 3:
+    pointsList = []
+    while point != "stop" and point != "Stop" and point != "STOP":
+        point = input("Enter pair of ints: ")
+        if point != "stop" and point != "Stop" and point != "STOP":
+            x, y = point.split(",")
+            pointsList.append(Point(x,y))
+        elif len(pointsList) < 3:
+            point = input("Enter 3 sets: ")
+            x, y = point.split(",")
+            pointsList.append(Point(x,y))
+        convexHull(pointsList)
